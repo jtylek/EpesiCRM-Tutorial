@@ -27,7 +27,7 @@ class TutorialTicketResource extends RecordsetResource
             Field::select('status', ['open' => 'Open', 'in_progress' => 'In progress', 'closed' => 'Closed'])->required()->inTable(),
             Field::select('permission', RecordPermission::class)->required()->default(RecordPermission::Public),
             Field::date('due_date')->inTable()->filterable(),
-            Field::integer('impact')->minValue(1)->maxValue(5),
+            Field::integer('impact'),
         ];
     }
 }
