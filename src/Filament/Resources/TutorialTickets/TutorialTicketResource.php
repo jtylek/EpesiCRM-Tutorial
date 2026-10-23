@@ -9,12 +9,15 @@ use Custom\Modules\Tutorial\Models\TutorialTicket;
 use Epesi\Modules\RecordBrowser\Recordset\Field;
 use Epesi\Modules\RecordBrowser\Recordset\RecordsetResource;
 use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 class TutorialTicketResource extends RecordsetResource
 {
     protected static ?string $model = TutorialTicket::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTicket;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Tutorial';
 
     protected static ?string $recordTitleAttribute = 'title';
 

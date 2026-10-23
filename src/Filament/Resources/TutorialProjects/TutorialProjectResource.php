@@ -15,12 +15,15 @@ use Epesi\Modules\RecordBrowser\Models\PhoneNumber;
 use Epesi\Modules\RecordBrowser\Recordset\Field;
 use Epesi\Modules\RecordBrowser\Recordset\RecordsetResource;
 use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 class TutorialProjectResource extends RecordsetResource
 {
     protected static ?string $model = TutorialProject::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Tutorial';
 
     protected static ?string $recordTitleAttribute = 'name';
 
