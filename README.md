@@ -36,7 +36,8 @@ php artisan module:check Custom/Tutorial --schema
 
 The CommonData field reads the `Tutorial_ProjectGroups` list; add options to that list in
 Administration → Common Data. The custom Checkpoint collection uses the
-`Tutorial_ProjectCheckpointKinds` list. Currency entry uses the configured currencies module.
+`Tutorial_ProjectCheckpointKinds` list. A ticket's Impact is a CommonData pick from the `Tutorial_TicketImpact` list (Low, Medium, High),
+created by the module's migration. Currency entry uses the configured currencies module.
 
 ## How the module was created
 

@@ -9,6 +9,7 @@ use Custom\Modules\Tutorial\Filament\Resources\TutorialTickets\TutorialTicketRes
 use Custom\Modules\Tutorial\Models\TutorialCheckpoint;
 use Custom\Modules\Tutorial\Models\TutorialProject;
 use Custom\Modules\Tutorial\Models\TutorialTicket;
+use Epesi\Modules\CommonData\Facades\CommonData;
 use Epesi\Modules\RecordBrowser\Models\Address;
 use Epesi\Modules\RecordBrowser\Models\EmailAddress;
 use Epesi\Modules\RecordBrowser\Models\OnlineAccount;
@@ -49,6 +50,15 @@ class TutorialRecordsetsTest extends TestCase
     {
         $this->assertTrue(Schema::hasColumns('custom_tutorial_tutorial_projects', ['customer_type', 'customer_id']));
         $this->assertTrue(method_exists(TutorialProject::class, 'customer'));
+    }
+
+    public function test_ticket_impact_is_a_low_medium_high_common_data_pick(): void
+    {
+        $impact = collect(TutorialTicketResource::fields())->firstWhere('name', 'impact');
+
+        $this->assertSame(FieldType::CommonData, $impact->type);
+        $this->assertSame(['low' => 'Low', 'medium' => 'Medium', 'high' => 'High'], CommonData::array('Tutorial_TicketImpact', 'position'));
+        $this->assertTrue(TutorialTicket::create(['title' => 'T', 'project_id' => TutorialProject::create(['name' => 'P'])->id, 'impact' => 'high'])->refresh()->impact === 'high');
     }
 
     public function test_the_tickets_addon_renders_on_a_project(): void

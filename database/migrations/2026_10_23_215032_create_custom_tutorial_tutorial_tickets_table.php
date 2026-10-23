@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('status', 32)->default('open');
             $table->unsignedTinyInteger('permission')->default(0);
             $table->date('due_date')->nullable();
-            $table->unsignedTinyInteger('impact')->nullable();
+            $table->string('impact', 32)->nullable();
             $table->foreignId('created_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
