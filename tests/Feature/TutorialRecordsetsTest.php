@@ -65,10 +65,14 @@ class TutorialRecordsetsTest extends TestCase
     {
         $this->actingAs($this->userWithRole('super_admin'));
         $project = TutorialProject::create(['name' => 'Addon project']);
+        $ticket = TutorialTicket::create(['title' => 'Addon ticket', 'project_id' => $project->id]);
 
         Livewire::test(TutorialTicketsRelationManager::class, [
             'ownerRecord' => $project,
             'pageClass' => ViewTutorialProject::class,
-        ])->assertSuccessful();
+        ])->assertSuccessful()
+            ->assertTableActionVisible('view', $ticket)
+            ->assertTableActionVisible('edit', $ticket)
+            ->assertTableActionHasUrl('edit', TutorialTicketResource::getUrl('edit', ['record' => $ticket]), $ticket);
     }
 }
