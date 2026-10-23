@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -24,7 +25,7 @@ class TutorialProject extends Model
     protected $fillable = [
         'name', 'description', 'quantity', 'estimated_cost', 'approved', 'start_date',
         'review_at', 'meeting_time', 'phase', 'channels', 'groups', 'owner_id', 'watchers',
-        'file', 'files', 'budget', 'budget_currency', 'email', 'website', 'phone',
+        'file', 'files', 'budget', 'budget_currency', 'email', 'website', 'phone', 'customer_type', 'customer_id',
     ];
 
     protected function casts(): array
@@ -51,6 +52,11 @@ class TutorialProject extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function customer(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     public function getActivitylogOptions(): LogOptions

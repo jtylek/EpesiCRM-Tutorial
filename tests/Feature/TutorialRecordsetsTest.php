@@ -13,10 +13,14 @@ use Epesi\Modules\RecordBrowser\Models\EmailAddress;
 use Epesi\Modules\RecordBrowser\Models\OnlineAccount;
 use Epesi\Modules\RecordBrowser\Models\PhoneNumber;
 use Epesi\Modules\RecordBrowser\Recordset\FieldType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class TutorialRecordsetsTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_project_examples_cover_the_recordbrowser_field_types_and_collections(): void
     {
         $fields = collect(TutorialProjectResource::fields())->keyBy('name');
@@ -36,5 +40,11 @@ class TutorialRecordsetsTest extends TestCase
         $this->assertSame([TutorialTicketsRelationManager::class], TutorialProjectResource::addons());
         $this->assertContains('epesi/recordbrowser', json_decode(file_get_contents(dirname(__DIR__, 2).'/module.json'), true)['requires']);
         $this->assertNotEmpty(TutorialTicketResource::fields());
+    }
+
+    public function test_customer_field_has_its_morph_columns(): void
+    {
+        $this->assertTrue(Schema::hasColumns('custom_tutorial_tutorial_projects', ['customer_type', 'customer_id']));
+        $this->assertTrue(method_exists(TutorialProject::class, 'customer'));
     }
 }
