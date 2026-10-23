@@ -3,6 +3,7 @@
 namespace Custom\Modules\Tutorial\Tests\Feature;
 
 use Custom\Modules\Tutorial\Filament\Resources\TutorialProjects\TutorialProjectResource;
+use Custom\Modules\Tutorial\Filament\Resources\TutorialProjects\Pages\ViewTutorialProject;
 use Custom\Modules\Tutorial\Filament\Resources\TutorialProjects\TutorialTicketsRelationManager;
 use Custom\Modules\Tutorial\Filament\Resources\TutorialTickets\TutorialTicketResource;
 use Custom\Modules\Tutorial\Models\TutorialCheckpoint;
@@ -15,11 +16,13 @@ use Epesi\Modules\RecordBrowser\Models\PhoneNumber;
 use Epesi\Modules\RecordBrowser\Recordset\FieldType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
+use Livewire\Livewire;
+use Tests\Concerns\SignsInUsers;
 use Tests\TestCase;
 
 class TutorialRecordsetsTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, SignsInUsers;
 
     public function test_project_examples_cover_the_recordbrowser_field_types_and_collections(): void
     {
@@ -46,5 +49,16 @@ class TutorialRecordsetsTest extends TestCase
     {
         $this->assertTrue(Schema::hasColumns('custom_tutorial_tutorial_projects', ['customer_type', 'customer_id']));
         $this->assertTrue(method_exists(TutorialProject::class, 'customer'));
+    }
+
+    public function test_the_tickets_addon_renders_on_a_project(): void
+    {
+        $this->actingAs($this->userWithRole('super_admin'));
+        $project = TutorialProject::create(['name' => 'Addon project']);
+
+        Livewire::test(TutorialTicketsRelationManager::class, [
+            'ownerRecord' => $project,
+            'pageClass' => ViewTutorialProject::class,
+        ])->assertSuccessful();
     }
 }

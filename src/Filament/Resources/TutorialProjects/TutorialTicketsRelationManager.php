@@ -2,6 +2,7 @@
 
 namespace Custom\Modules\Tutorial\Filament\Resources\TutorialProjects;
 
+use Custom\Modules\Tutorial\Filament\Resources\TutorialTickets\TutorialTicketResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
