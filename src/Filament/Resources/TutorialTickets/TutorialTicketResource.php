@@ -25,7 +25,7 @@ class TutorialTicketResource extends RecordsetResource
     {
         return [
             Field::text('title')->required()->maxLength(160)->inTable(),
-            Field::relation('project_id', TutorialProject::class)->titleAttribute('name')->required()->inTable(),
+            Field::relation('project_id', TutorialProject::class)->titleAttribute('name')->required()->inTable()->listedOnTarget(false),
             Field::longText('description'),
             Field::select('status', ['open' => 'Open', 'in_progress' => 'In progress', 'closed' => 'Closed'])->required()->inTable(),
             Field::select('permission', RecordPermission::class)->required()->default(RecordPermission::Public),

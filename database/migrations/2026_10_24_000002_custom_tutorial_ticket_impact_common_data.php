@@ -26,6 +26,9 @@ return new class extends Migration
             Schema::table('custom_tutorial_tutorial_tickets', function ($table): void {
                 $table->string('impact', 32)->nullable()->change();
             });
+
+            // The old numbers mean nothing as list keys.
+            DB::table('custom_tutorial_tutorial_tickets')->whereNotIn('impact', array_keys(self::ITEMS))->update(['impact' => null]);
         }
 
         $table = DB::table('common_data');
