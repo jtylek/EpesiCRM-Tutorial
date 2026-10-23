@@ -1,0 +1,14 @@
+[
+    {
+        "alias": "custom_tutorial_tutorial_project",
+        "model": "Custom\\Modules\\Tutorial\\Models\\TutorialProject",
+        "policy": "Custom\\Modules\\Tutorial\\Policies\\TutorialProjectPolicy",
+        "resource": "Custom\\Modules\\Tutorial\\Filament\\Resources\\TutorialProjects\\TutorialProjectResource"
+    },
+    {
+        "alias": "custom_tutorial_tutorial_ticket",
+        "model": "Custom\\Modules\\Tutorial\\Models\\TutorialTicket",
+        "policy": "Custom\\Modules\\Tutorial\\Policies\\TutorialTicketPolicy",
+        "resource": "Custom\\Modules\\Tutorial\\Filament\\Resources\\TutorialTickets\\TutorialTicketResource"
+    }
+]

@@ -1,0 +1,25 @@
+{
+    "id": "custom/tutorial",
+    "name": "Epesi Developer Tutorial",
+    "description": "A free developer tutorial demonstrating RecordBrowser fields, collections, history and parent-child addons.",
+    "version": "1.0.0",
+    "epesi_core": "^3.0",
+    "category": "Developer tools",
+    "icon": "heroicon-o-academic-cap",
+    "namespace": "Custom\\Modules\\Tutorial\\",
+    "path": "Custom/Tutorial",
+    "provider_class": "Custom\\Modules\\Tutorial\\TutorialServiceProvider",
+    "plugin_class": "Custom\\Modules\\Tutorial\\TutorialPlugin",
+    "panels": [
+        "main"
+    ],
+    "requires": [
+        "epesi/recordbrowser",
+        "epesi/commondata",
+        "epesi/currencies",
+        "epesi/crm-contacts",
+        "epesi/crm-companies"
+    ],
+    "license": "MIT",
+    "provides": []
+}
