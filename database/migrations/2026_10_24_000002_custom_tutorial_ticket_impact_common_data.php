@@ -69,6 +69,18 @@ return new class extends Migration
         }
     }
 
-    /** Nothing to undo: tickets may already use the list. */
-    public function down(): void {}
+    /** Uninstalling removes the list with its options; the tickets table goes with its own migration. */
+    public function down(): void
+    {
+        $root = DB::table('common_data')->where('path', self::LIST)->value('id');
+
+        if ($root !== null) {
+            DB::table('common_data')->where('parent_id', $root)->delete();
+            DB::table('common_data')->where('id', $root)->delete();
+        }
+
+        if (class_exists(\Epesi\Modules\CommonData\CommonDataRepository::class)) {
+            \Epesi\Modules\CommonData\CommonDataRepository::invalidate();
+        }
+    }
 };

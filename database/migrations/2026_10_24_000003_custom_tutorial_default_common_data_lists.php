@@ -64,6 +64,20 @@ return new class extends Migration
         }
     }
 
-    /** Nothing to undo: records may already use the lists. */
-    public function down(): void {}
+    /** Uninstalling removes both lists with their options. */
+    public function down(): void
+    {
+        foreach (array_keys(self::LISTS) as $list) {
+            $root = DB::table('common_data')->where('path', $list)->value('id');
+
+            if ($root !== null) {
+                DB::table('common_data')->where('parent_id', $root)->delete();
+                DB::table('common_data')->where('id', $root)->delete();
+            }
+        }
+
+        if (class_exists(\Epesi\Modules\CommonData\CommonDataRepository::class)) {
+            \Epesi\Modules\CommonData\CommonDataRepository::invalidate();
+        }
+    }
 };
