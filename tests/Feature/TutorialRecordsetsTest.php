@@ -61,6 +61,12 @@ class TutorialRecordsetsTest extends TestCase
         $this->assertTrue(TutorialTicket::create(['title' => 'T', 'project_id' => TutorialProject::create(['name' => 'P'])->id, 'impact' => 'high'])->refresh()->impact === 'high');
     }
 
+    public function test_the_project_group_and_checkpoint_kind_lists_have_options(): void
+    {
+        $this->assertSame(['internal' => 'Internal', 'customer' => 'Customer', 'training' => 'Training'], CommonData::array('Tutorial_ProjectGroups', 'position'));
+        $this->assertSame(['milestone' => 'Milestone', 'review' => 'Review', 'deadline' => 'Deadline'], CommonData::array(TutorialCheckpoint::kinds(), 'position'));
+    }
+
     public function test_the_tickets_addon_renders_on_a_project(): void
     {
         $this->actingAs($this->userWithRole('super_admin'));
