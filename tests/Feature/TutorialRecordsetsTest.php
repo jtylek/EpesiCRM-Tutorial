@@ -10,6 +10,8 @@ use Custom\Modules\Tutorial\Models\TutorialCheckpoint;
 use Custom\Modules\Tutorial\Models\TutorialProject;
 use Custom\Modules\Tutorial\Models\TutorialTicket;
 use Epesi\Modules\CommonData\Facades\CommonData;
+use Epesi\Modules\CRM\Contacts\Models\Contact;
+use Epesi\Modules\RecordBrowser\Filament\RelationManagers\HistoryRelationManager;
 use Epesi\Modules\RecordBrowser\Models\Address;
 use Epesi\Modules\RecordBrowser\Models\EmailAddress;
 use Epesi\Modules\RecordBrowser\Models\OnlineAccount;
@@ -65,6 +67,18 @@ class TutorialRecordsetsTest extends TestCase
     {
         $this->assertSame(['internal' => 'Internal', 'customer' => 'Customer', 'training' => 'Training'], CommonData::array('Tutorial_ProjectGroups', 'position'));
         $this->assertSame(['milestone' => 'Milestone', 'review' => 'Review', 'deadline' => 'Deadline'], CommonData::array(TutorialCheckpoint::kinds(), 'position'));
+    }
+
+    public function test_history_renders_for_a_project_with_watchers(): void
+    {
+        $this->actingAs($this->userWithRole('super_admin'));
+        $project = TutorialProject::create(['name' => 'History project']);
+        $project->watchers()->sync([Contact::create(['first_name' => 'Ann', 'last_name' => 'Lee'])->id]);
+        $project->update(['name' => 'Renamed project', 'groups' => ['customer']]);
+
+        Livewire::test(HistoryRelationManager::class, ['ownerRecord' => $project->fresh(), 'pageClass' => ViewTutorialProject::class])
+            ->assertSuccessful()
+            ->assertSeeText('Renamed project');
     }
 
     public function test_the_tickets_addon_renders_on_a_project(): void

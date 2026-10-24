@@ -24,7 +24,7 @@ class TutorialProject extends Model
 
     protected $fillable = [
         'name', 'description', 'quantity', 'estimated_cost', 'approved', 'start_date',
-        'review_at', 'meeting_time', 'phase', 'channels', 'groups', 'owner_id', 'watchers',
+        'review_at', 'meeting_time', 'phase', 'channels', 'groups', 'owner_id',
         'file', 'files', 'budget', 'budget_currency', 'email', 'website', 'phone', 'customer_type', 'customer_id',
     ];
 
