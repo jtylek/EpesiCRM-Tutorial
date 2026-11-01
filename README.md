@@ -51,13 +51,20 @@ If the tutorial repository is already cloned elsewhere, copy or move its content
 `module.json` is at `modules/Custom/Tutorial/module.json`, then start with the first Artisan
 command above. Do not clone it into a nested `modules/Custom/Tutorial/EpesiCRM-Tutorial` folder.
 
-### Find it in the Administrator Control Panel
+### Discover, register, and install it in the Administrator Control Panel
+
+After cloning the tutorial into `modules/Custom/Tutorial`:
 
 1. Sign in to EPESI with an administrator account.
 2. Open **Administration → Modules**.
-3. Search for **Epesi Developer Tutorial** (module ID: `custom/tutorial`).
-4. Confirm its status is **Enabled**. If it is disabled, use the module's **Enable** action.
-5. Open the main panel and look for the tutorial's Projects and Tickets pages.
+3. Click **Discover modules**.
+4. Find **Epesi Developer Tutorial** (module ID: `custom/tutorial`) in the discovered modules and choose **Register**.
+5. Return to the Modules list. Find the registered tutorial and choose **Install**. If EPESI prompts you to confirm or run the module setup, follow the prompts.
+6. Confirm that the module is installed and enabled.
+7. Open the main panel and look for the tutorial's Projects and Tickets pages.
+
+If the tutorial does not appear after discovery, check that its manifest is located at
+`modules/Custom/Tutorial/module.json` and that the required modules are installed.
 
 The module's migrations create the CommonData lists it reads. An administrator can add options
 to them in **Administration → Common Data**: `Tutorial_ProjectGroups` (project Groups: Internal,
