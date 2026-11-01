@@ -4,6 +4,8 @@ A free module available in Epesi Store that demonstrates how to build a RecordBr
 Projects and Tickets, with Tickets related to their parent Project, plus a project-owned Checkpoint
 collection.
 
+> **Setting up the development environment?** Before working on this tutorial, follow the [Windows Setup Guide](https://github.com/jtylek/EpesiCRM-Tutorial/blob/main/docs/WindowsSetupGuide.md) for the complete Windows 10/11 setup, including PHP Windows DevStack, Composer, VS Code, and AI coding agents.
+
 ## What it demonstrates
 
 - Every RecordBrowser scalar and relationship field family: text, long text, integer, decimal,
