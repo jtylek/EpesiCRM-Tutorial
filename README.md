@@ -90,5 +90,3 @@ relationship, custom collection item, migrations, and documentation. Run
 `php artisan migrate --pretend --path=modules/Custom/Tutorial/database/migrations`, and run the
 module tests explicitly with `php artisan test modules/Custom/Tutorial/tests`.
 
-See the repository's `AI-shared/AI-agent-module-development.md` for the full agent-oriented
-workflow and `AI-shared/Epesi-custom-fields.md` for the field and collection contracts.
