@@ -1,8 +1,6 @@
 # Epesi Developer Tutorial
 
-A free module available in Epesi Store that demonstrates how to build a RecordBrowser module. It contains
-Projects and Tickets, with Tickets related to their parent Project, plus a project-owned Checkpoint
-collection.
+A free sample tutorial module for Epesi CRM 3.0.
 
 > **Setting up the development environment?** Before working on this tutorial, follow the [Windows Setup Guide](https://github.com/jtylek/EpesiCRM-Tutorial/blob/main/docs/WindowsSetupGuide.md) for the complete Windows 10/11 setup, including PHP Windows DevStack, Composer, VS Code, and AI coding agents.
 
@@ -24,23 +22,48 @@ The examples are intentionally compact. Review the resource `fields()` methods f
 each field to its model and migration. The `recordsets.json` catalogue is registered in the service
 provider and can be extended safely by the recordset generator.
 
-## Install for development
+## Install the tutorial module
 
-The module requires Epesi Core 3.x, RecordBrowser, CommonData, Currencies, Contacts and Companies.
-Install those dependencies, then install this module through Administration → Modules or run:
+This tutorial module is distributed as source code. Clone it into the EPESI installation's
+`modules/Custom/Tutorial` directory. The module requires Epesi Core 3.x, RecordBrowser,
+CommonData, Currencies, Contacts and Companies; make sure these dependencies are installed first.
 
-```text
+### Command-line installation
+
+Open a terminal in the root directory of your running EPESI installation (the directory containing
+`artisan`), then run:
+
+```bash
+git clone https://github.com/jtylek/EpesiCRM-Tutorial.git modules/Custom/Tutorial
+php artisan module:check Custom/Tutorial
 php artisan module:register Custom/Tutorial
 php artisan migrate --path=modules/Custom/Tutorial/database/migrations
 php artisan module:enable custom/tutorial
 php artisan module:check Custom/Tutorial --schema
 ```
 
-The module's migrations create the CommonData lists it reads, and an administrator can add options
-to any of them in Administration → Common Data: `Tutorial_ProjectGroups` (a project's Groups:
-Internal, Customer, Training), `Tutorial_ProjectCheckpointKinds` (a checkpoint's Kind: Milestone,
-Review, Deadline) and `Tutorial_TicketImpact` (a ticket's Impact: Low, Medium, High). Currency entry
-uses the configured currencies module.
+The first check reports missing dependencies or manifest problems. Registration adds the module
+already present under `modules/` to this EPESI installation. The migration command creates the
+tutorial's tables and CommonData lists. The enable command makes the module available in the main
+panel. The final check validates the registered module's schema.
+
+If the tutorial repository is already cloned elsewhere, copy or move its contents so that
+`module.json` is at `modules/Custom/Tutorial/module.json`, then start with the first Artisan
+command above. Do not clone it into a nested `modules/Custom/Tutorial/EpesiCRM-Tutorial` folder.
+
+### Find it in the Administrator Control Panel
+
+1. Sign in to EPESI with an administrator account.
+2. Open **Administration → Modules**.
+3. Search for **Epesi Developer Tutorial** (module ID: `custom/tutorial`).
+4. Confirm its status is **Enabled**. If it is disabled, use the module's **Enable** action.
+5. Open the main panel and look for the tutorial's Projects and Tickets pages.
+
+The module's migrations create the CommonData lists it reads. An administrator can add options
+to them in **Administration → Common Data**: `Tutorial_ProjectGroups` (project Groups: Internal,
+Customer, Training), `Tutorial_ProjectCheckpointKinds` (checkpoint Kind: Milestone, Review,
+Deadline), and `Tutorial_TicketImpact` (ticket Impact: Low, Medium, High). Currency entry uses
+the configured Currencies module.
 
 ## How the module was created
 
